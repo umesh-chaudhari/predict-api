@@ -41,10 +41,10 @@ def predict():
         [raw_features[3], raw_features[4]]  # Social Isolation
     ]
 
-    predictions = {}
-    for (trait_name, clf), features in zip(classifiers, feature_sets):
+    predictions = []
+    for clf, features in zip(classifiers, feature_sets):
         prediction = clf.predict([features])[0]
-        predictions[trait_name] = prediction
+        predictions.append(prediction)
 
     return jsonify(predictions)
 
