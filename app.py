@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)
 UPLOAD_FOLDER = 'uploads'
 if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
+    os.makedirs(UPLOAD_FOLDER)  
 
 # Load classifiers from pickle file
 with open('classifiers.pkl', 'rb') as f:
@@ -46,7 +46,7 @@ def predict():
         prediction = clf.predict([features])[0]
         predictions.append(prediction)
 
-    return jsonify(predictions)
+    return jsonify(predictions, raw_features)
 
 @app.route('/metrics', methods=['GET'])
 def get_metrics():

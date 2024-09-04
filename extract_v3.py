@@ -371,9 +371,18 @@ def extract_slant(img, words):
             # Calculate the amount of extra space needed to preserve information
             pad_length = abs(int(shift))
 
+
+
             # Create a new image that can perfectly hold the transformed image
             blank_image = np.zeros((height, width + pad_length * 2), np.uint8)
-            new_image = cv2.cvtColor(blank_image, cv2.COLOR_BGR2GRAY)
+
+            if len(blank_image.shape) == 3 and blank_image.shape[2] == 3:
+                # Convert to grayscale if it's a color image
+                new_image = cv2.cvtColor(blank_image, cv2.COLOR_BGR2GRAY)
+            else:
+                # The image is already grayscale
+                new_image = blank_image
+
             new_image[:, pad_length:width + pad_length] = original_word
 
             # Points for affine transformation
